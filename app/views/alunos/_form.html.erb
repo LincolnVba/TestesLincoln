@@ -1,0 +1,27 @@
+<%= form_for(@aluno) do |f| %>
+  <% if @aluno.errors.any? %>
+    <div id="error_explanation">
+      <h2>Por favor, verifique o(s) seguinte(s) campo(s):</h2>
+      <ul>
+      <% @aluno.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :turma_id %><br>
+    <%= f.select(:turma_id, @turmas.collect {|p| [ p.nome, p.id ] }, {include_blank: 'Selecione uma Turma.', selected: @aluno.turma_id}, { class: "span3"}) %>
+  </div>
+  <div class="field">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, placeholder: "Nome do aluno" , class: "input-xxlarge", required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => "btn btn-primary" %>
+    <%= link_to 'Voltar', alunos_path, :class => "btn" %>
+  </div>
+
+<% end %>

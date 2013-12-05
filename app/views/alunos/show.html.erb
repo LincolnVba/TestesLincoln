@@ -1,0 +1,47 @@
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+    <a class="brand" href="#">Aluno</a>
+  </div>
+</div>
+
+<address>
+  <strong><%= @aluno.nome %></strong><br>
+  Turma: <%= @aluno.turma.nome %><br>
+</address>
+
+<%= form_for(@aluno) do |f| %>
+    <%= f.hidden_field :prova, :value =>"1" %>
+    <% if @aluno.errors.any? %>
+        <div id="error_explanation">
+          <h2>Por favor, verifique o(s) seguinte(s) campo(s):</h2>
+
+          <ul>
+            <% @aluno.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+          <table style="width: 80%">
+            <tr style="text-align: left">
+              <th colspan="2">Prova <span class="badge badge-success">01</span></th>
+              <th colspan="2">Prova <span class="badge badge-warning">02</span></th>
+              <th colspan="2">Prova <span class="badge badge-info">03</span></th>
+              <th colspan="2">Prova <span class="badge badge-inverse">04</span></th>
+            </tr>
+            <tr>
+              <%= f.fields_for :provas do |p| %>
+                 <td style="width: 5%; text-align: right"><%= p.label :nota %></td>
+                 <td style="width: 15%"><%= p.text_field :nota, class:"input-mini" %></td>
+              <% end %>
+            </tr>
+          </table>
+
+
+    <div class="form-actions">
+      <%= f.submit "Atualizar Provas", :class => "btn btn-primary" %>
+      <%= link_to 'Voltar', alunos_path, :class => "btn" %>
+    </div>
+
+<% end %>

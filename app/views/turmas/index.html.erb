@@ -1,0 +1,45 @@
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+    <a class="brand" href="#">Lista de turmas</a>
+    <%= form_tag turmas_url, :method => :get, class: "navbar-search pull-right" do %>
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <%= submit_tag 'Buscar', :disable_with => "Buscando" , :class=> "btn" %>
+    <% end %>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Turma</th>
+    <th>Professor</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @turmas.each do |turma| %>
+      <tr>
+        <td><%= turma.nome %></td>
+        <td><%= turma.professor.nome %></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to 'Visualizar', turma, class: "btn" %>
+            <%= link_to 'Editar', edit_turma_path(turma), class: "btn" %>
+            <%= link_to 'Deletar', turma, method: :delete, data: { confirm: 'Tem certeza?' } , class: "btn"%>
+          </div>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="form-actions">
+  <%= link_to 'Adicionar Turma', new_turma_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+
+<script>
+  menu = "#turmas"
+</script>

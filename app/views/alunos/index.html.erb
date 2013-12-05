@@ -1,0 +1,47 @@
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+     <a class="brand" href="#">Lista de alunos</a>
+    <%= form_tag alunos_url, :method => :get, class: "navbar-search pull-right" do %>
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <%= submit_tag 'Buscar', :disable_with => "Buscando" , :class=> "btn" %>
+    <% end %>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Turma</th>
+      <th>Situação</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alunos.each do |aluno| %>
+      <tr>
+        <td><%= aluno.nome %></td>
+        <td><%= aluno.turma.nome %></td>
+        <td><span class="label <%= ((aluno.situacao == "Aprovado") ? 'label-success' : 'label-important') %>"><%= aluno.situacao %></span></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to 'Provas', aluno, class: "btn" %>
+            <%= link_to 'Editar', edit_aluno_path(aluno), class: "btn" %>
+            <%= link_to 'Deletar', aluno, method: :delete, data: { confirm: 'Tem certeza?' } , class: "btn"%>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="form-actions">
+    <%= link_to 'Adicionar Aluno', new_aluno_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+
+<script>
+    menu = "#alunos"
+</script>

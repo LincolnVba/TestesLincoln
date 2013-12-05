@@ -1,0 +1,45 @@
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+    <a class="brand" href="#">Lista de professores</a>
+    <%= form_tag professors_url, :method => :get, class: "navbar-search pull-right" do %>
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <%= submit_tag 'Buscar', :disable_with => "Buscando" , :class=> "btn" %>
+    <% end %>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>Formação</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @professors.each do |professor| %>
+      <tr>
+        <td><%= professor.nome %></td>
+        <td><%= professor.formacao %></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to 'Visualizar', professor, class: "btn" %>
+            <%= link_to 'Editar', edit_professor_path(professor), class: "btn" %>
+            <%= link_to 'Deletar', professor, method: :delete, data: { confirm: 'Tem certeza?' } , class: "btn"%>
+          </div>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="form-actions">
+  <%= link_to 'Adicionar Professor', new_professor_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+
+<script>
+    menu = "#professores"
+</script>

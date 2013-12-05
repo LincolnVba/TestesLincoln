@@ -1,0 +1,12 @@
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+    <a class="brand" href="#">Turma</a>
+  </div>
+</div>
+<address>
+  <strong><%= @turma.nome %></strong><br>
+  Professor:<%= @turma.professor.nome %><br>
+</address>
+<div class="form-actions">
+  <%= link_to 'Voltar', turmas_path, :class => "btn" %>
+</div>
